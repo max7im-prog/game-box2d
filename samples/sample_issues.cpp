@@ -27,7 +27,7 @@ static float b2CastResult_Closest( b2ShapeId shapeId, b2Vec2 point, b2Vec2 norma
 {
 	CastContext_Single* context = static_cast<CastContext_Single*>( c );
 
-	if ( b2Dot( context->translation, normal ) >= 0.0f )
+	if (b2Dot( context->translation, normal ) >= 0.0f)
 		return -1.0f;
 
 	context->result.shapeId = shapeId;
@@ -47,7 +47,7 @@ static b2ShapeProxy TransformShapeProxy( const b2Transform& t, const b2ShapeProx
 	ret.count = proxy.count;
 	ret.radius = proxy.radius;
 
-	for ( int i = 0; i < proxy.count; ++i )
+	for (int i = 0; i < proxy.count; ++i)
 	{
 		ret.points[i] = b2TransformPoint( t, proxy.points[i] );
 	}
@@ -120,35 +120,35 @@ public:
 		const float timeStep = m_context->hertz > 0.0f ? 1.0f / m_context->hertz : 0.0f;
 
 		bool noXInput = true;
-		if ( glfwGetKey( m_context->window, GLFW_KEY_A ) )
+		if (glfwGetKey( m_context->window, GLFW_KEY_A ))
 		{
 			characterVelocity_.x -= timeStep * 5.0f;
 			noXInput = false;
 		}
-		if ( glfwGetKey( m_context->window, GLFW_KEY_D ) )
+		if (glfwGetKey( m_context->window, GLFW_KEY_D ))
 		{
 			characterVelocity_.x += timeStep * 5.0f;
 			noXInput = false;
 		}
 
 		bool noYInput = true;
-		if ( glfwGetKey( m_context->window, GLFW_KEY_S ) )
+		if (glfwGetKey( m_context->window, GLFW_KEY_S ))
 		{
 			characterVelocity_.y -= timeStep * 5.0f;
 			noYInput = false;
 		}
-		if ( glfwGetKey( m_context->window, GLFW_KEY_W ) )
+		if (glfwGetKey( m_context->window, GLFW_KEY_W ))
 		{
 			characterVelocity_.y += timeStep * 5.0f;
 			noYInput = false;
 		}
 
-		if ( noXInput )
+		if (noXInput)
 		{
-			if ( b2AbsFloat( characterVelocity_.x ) > 0.01f )
+			if (b2AbsFloat( characterVelocity_.x ) > 0.01f)
 			{
 				const float decel = characterVelocity_.x > 0.0f ? 5.0f : -5.0f;
-				if ( b2AbsFloat( decel ) < characterVelocity_.x )
+				if (b2AbsFloat( decel ) < characterVelocity_.x)
 				{
 					characterVelocity_.x -= decel;
 				}
@@ -163,12 +163,12 @@ public:
 			}
 		}
 
-		if ( noYInput )
+		if (noYInput)
 		{
-			if ( b2AbsFloat( characterVelocity_.y ) > 0.01f )
+			if (b2AbsFloat( characterVelocity_.y ) > 0.01f)
 			{
 				const float decel = characterVelocity_.y > 0.0f ? 5.0f : -5.0f;
-				if ( b2AbsFloat( decel ) < characterVelocity_.y )
+				if (b2AbsFloat( decel ) < characterVelocity_.y)
 				{
 					characterVelocity_.y -= decel;
 				}
@@ -191,7 +191,7 @@ public:
 
 		PhysicsHitQueryResult2D hitResult;
 		const b2ShapeProxy shapeProxy = b2MakeProxy( characterBox_.vertices, characterBox_.count, characterBox_.radius );
-		if ( ShapeCastSingle( hitResult, characterPos, newCharacterPos, 0.0f, shapeProxy ) )
+		if (ShapeCastSingle( hitResult, characterPos, newCharacterPos, 0.0f, shapeProxy ))
 		{
 			hitPos = hitResult.point;
 			hitNormal = hitResult.normal;
@@ -215,7 +215,7 @@ public:
 		context.translation = { translation.x, translation.y };
 		b2World_CastShape( m_worldId, &transformedShape, translation, filter, &b2CastResult_Closest, &context );
 
-		if ( context.hit )
+		if (context.hit)
 		{
 			outResult = context.result;
 			return true;
@@ -245,7 +245,7 @@ public:
 	explicit BadSteiner( SampleContext* context )
 		: Sample( context )
 	{
-		if ( m_context->restart == false )
+		if (m_context->restart == false)
 		{
 			m_context->camera.m_center = { 0.0f, 1.75f };
 			m_context->camera.m_zoom = 2.5f;
@@ -294,7 +294,7 @@ public:
 	explicit DisableCrash( SampleContext* context )
 		: Sample( context )
 	{
-		if ( m_context->restart == false )
+		if (m_context->restart == false)
 		{
 			m_context->camera.m_center = { 0.8f, 6.4f };
 			m_context->camera.m_zoom = 25.0f * 0.4f;
@@ -348,9 +348,9 @@ public:
 		ImGui::SetNextWindowSize( ImVec2( 9.0f * fontSize, height ) );
 		ImGui::Begin( "Disable Crash", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize );
 
-		if ( ImGui::Checkbox( "Enable", &m_isEnabled ) )
+		if (ImGui::Checkbox( "Enable", &m_isEnabled ))
 		{
-			if ( m_isEnabled )
+			if (m_isEnabled)
 			{
 				b2Body_Enable( m_attachmentId );
 			}
@@ -381,7 +381,7 @@ public:
 	explicit Crash01( SampleContext* context )
 		: Sample( context )
 	{
-		if ( m_context->restart == false )
+		if (m_context->restart == false)
 		{
 			m_context->camera.m_center = { 0.8f, 6.4f };
 			m_context->camera.m_zoom = 25.0f * 0.4f;
@@ -465,28 +465,28 @@ public:
 		ImGui::SetNextWindowSize( ImVec2( 9.0f * fontSize, height ) );
 		ImGui::Begin( "Crash 01", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize );
 
-		if ( ImGui::RadioButton( "Static", m_type == b2_staticBody ) )
+		if (ImGui::RadioButton( "Static", m_type == b2_staticBody ))
 		{
 			m_type = b2_staticBody;
 			b2Body_SetType( m_platformId, b2_staticBody );
 		}
 
-		if ( ImGui::RadioButton( "Kinematic", m_type == b2_kinematicBody ) )
+		if (ImGui::RadioButton( "Kinematic", m_type == b2_kinematicBody ))
 		{
 			m_type = b2_kinematicBody;
 			b2Body_SetType( m_platformId, b2_kinematicBody );
 			b2Body_SetLinearVelocity( m_platformId, { -0.1f, 0.0f } );
 		}
 
-		if ( ImGui::RadioButton( "Dynamic", m_type == b2_dynamicBody ) )
+		if (ImGui::RadioButton( "Dynamic", m_type == b2_dynamicBody ))
 		{
 			m_type = b2_dynamicBody;
 			b2Body_SetType( m_platformId, b2_dynamicBody );
 		}
 
-		if ( ImGui::Checkbox( "Enable", &m_isEnabled ) )
+		if (ImGui::Checkbox( "Enable", &m_isEnabled ))
 		{
-			if ( m_isEnabled )
+			if (m_isEnabled)
 			{
 				b2Body_Enable( m_attachmentId );
 			}
@@ -518,7 +518,7 @@ public:
 	explicit StaticVsBulletBug( SampleContext* context )
 		: Sample( context )
 	{
-		if ( m_context->restart == false )
+		if (m_context->restart == false)
 		{
 			m_context->camera.m_center = { 48.8525391, 68.1518555 };
 			m_context->camera.m_zoom = 100.0f * 0.5f;
@@ -574,4 +574,157 @@ public:
 
 static int staticVsBulletBug = RegisterSample( "Issues", "StaticVsBulletBug", StaticVsBulletBug::Create );
 
+class CrashPrismaticJoint : public Sample
+{
+public:
+	explicit CrashPrismaticJoint( SampleContext* context )
+		: Sample( context )
+	{
+		if (m_context->restart == false)
+		{
+			m_context->camera.m_center = { 0.0f, 1.75f };
+			m_context->camera.m_zoom = 32.0f;
+		}
 
+		{
+			b2BodyDef bodyDef = b2DefaultBodyDef();
+			b2BodyId groundId = b2CreateBody( m_worldId, &bodyDef );
+
+			b2ShapeDef shapeDef = b2DefaultShapeDef();
+			b2Segment segment = { { -100.0f, 0.0f }, { 100.0f, 0.0f } };
+			b2CreateSegmentShape( groundId, &shapeDef, &segment );
+		}
+
+		b2Filter filter = b2DefaultFilter();
+		filter.groupIndex = -1;
+
+		b2BodyId torsoId;
+		{
+			b2BodyDef bd = b2DefaultBodyDef();
+			bd.type = b2_dynamicBody;
+			torsoId = b2CreateBody( m_worldId, &bd );
+
+			b2ShapeDef sd = b2DefaultShapeDef();
+			sd.density = 1.0f;
+			sd.material.friction = 0.5f;
+			sd.material.restitution = 0.1f;
+			sd.filter = filter;
+
+			const b2Vec2 vertices[] = { { -1, 0 }, { 1, 0 }, { 1, 4 }, { -1, 4 } };
+
+			const b2Hull hull = b2ComputeHull( vertices, ARRAY_COUNT( vertices ) );
+			const b2Polygon polygon = b2MakePolygon( &hull, 0 );
+
+			b2CreatePolygonShape( torsoId, &sd, &polygon );
+		}
+		b2BodyId centerId;
+		{
+			b2BodyDef bd = b2DefaultBodyDef();
+			bd.type = b2_dynamicBody;
+			bd.position = { 0, 3 };
+			centerId = b2CreateBody( m_worldId, &bd );
+
+			b2ShapeDef sd = b2DefaultShapeDef();
+			sd.density = 1.0f;
+			sd.material.friction = 0.5f;
+			sd.material.restitution = 0.1f;
+			sd.filter = filter;
+
+			b2Circle circle;
+			circle.center = { 0, 0 };
+			circle.radius = 0.1;
+
+			b2CreateCircleShape( centerId, &sd, &circle );
+		}
+		b2JointId weldCenter;
+		{
+			b2WeldJointDef jd = b2DefaultWeldJointDef();
+			jd.base.bodyIdA = torsoId;
+			jd.base.bodyIdB = centerId;
+			jd.base.localFrameA.p = { 0, 3 };
+			weldCenter = b2CreateWeldJoint( m_worldId, &jd );
+		}
+
+		b2BodyId leftId;
+		{
+			b2BodyDef bd = b2DefaultBodyDef();
+			bd.type = b2_dynamicBody;
+			bd.position = { -3.5, 3 };
+
+			leftId = b2CreateBody( m_worldId, &bd );
+
+			b2ShapeDef sd = b2DefaultShapeDef();
+			sd.density = 1.0f;
+			sd.material.friction = 0.5f;
+			sd.material.restitution = 0.1f;
+			sd.filter = filter;
+
+			b2Circle circle;
+			circle.center = { 0, 0 };
+			circle.radius = 2;
+
+			b2CreateCircleShape( leftId, &sd, &circle );
+		}
+		b2JointId leftPrism;
+		{
+			b2PrismaticJointDef jd = b2DefaultPrismaticJointDef();
+			jd.base.bodyIdA = centerId;
+			jd.base.bodyIdB = leftId;
+			jd.base.localFrameA.p = { 0, 0 };
+			jd.base.localFrameA.q = b2MakeRot( 0 );
+			jd.enableSpring = true;
+			jd.enableLimit = true;
+			jd.hertz = 10;
+			jd.dampingRatio = 2;
+
+			jd.upperTranslation = 4;
+			jd.lowerTranslation = -4;
+			jd.targetTranslation = -3;
+			leftPrism = b2CreatePrismaticJoint( m_worldId, &jd );
+		}
+
+		b2BodyId rightId;
+		{
+			b2BodyDef bd = b2DefaultBodyDef();
+			bd.type = b2_dynamicBody;
+			bd.position = { 3.5, 3 };
+			rightId = b2CreateBody( m_worldId, &bd );
+
+			b2ShapeDef sd = b2DefaultShapeDef();
+			sd.density = 1.0f;
+			sd.material.friction = 0.5f;
+			sd.material.restitution = 0.1f;
+			sd.filter = filter;
+
+			b2Circle circle;
+			circle.center = { 0, 0 };
+			circle.radius = 2;
+
+			b2CreateCircleShape( rightId, &sd, &circle );
+		}
+		b2JointId rightPrism;
+		{
+			b2PrismaticJointDef jd = b2DefaultPrismaticJointDef();
+			jd.base.bodyIdA = centerId;
+			jd.base.bodyIdB = rightId;
+			jd.base.localFrameA.p = { 0, 0 };
+			jd.base.localFrameA.q = b2MakeRot( 0 );
+			jd.enableSpring = true;
+			jd.enableLimit = true;
+			jd.hertz = 10;
+			jd.dampingRatio = 2;
+
+			jd.upperTranslation = 4;
+			jd.lowerTranslation = -4;
+			jd.targetTranslation = 3;
+			rightPrism = b2CreatePrismaticJoint( m_worldId, &jd );
+		}
+	}
+
+	static Sample* Create( SampleContext* context )
+	{
+		return new CrashPrismaticJoint( context );
+	}
+};
+
+static int samplePrismaticJointCrash = RegisterSample( "Issues", "Crash with prismatic joint", CrashPrismaticJoint::Create );
